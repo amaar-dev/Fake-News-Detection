@@ -1,0 +1,19 @@
+| Step | Description                                                          |
+
+| ---- | -------------------------------------------------------------------- |
+
+| 1    | Accept a headline/article from user                                  |
+
+| 2    | Extract keywords / named entities                                    |
+
+| 3    | Search Google News (via API like GNews)                   |
+
+| 4    | Fetch top article titles/snippets                                    |
+
+| 5    | Compare input article to results using Sentence-BERT                 |
+
+| 6    | If similarity score > threshold for 3+ results → mark as likely real |
+
+| 7    | Else → mark as potentially fake                                      |
+
+| 8    | Display result + links to matched articles and similarity %          |
