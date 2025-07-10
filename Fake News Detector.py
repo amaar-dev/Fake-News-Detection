@@ -30,3 +30,20 @@ def search_results(query):
             print("Title:", result.get("title", "No title"))
             print("Description:", result.get("body", "No description"))
             print("URL:", result.get("href", "No URL"))
+        return results
+
+from sentence_transformers import SentenceTransformer, util
+
+model = SentenceTransformer('all-MiniLM-L6-v2')  # small, fast, and good
+
+def compare_similarity(user_input, search_results_list):
+    print("\n🔎 Semantic Similarity Analysis:")
+
+    user_embedding = model.encode(user_input, convert_to_tensor=True)
+
+    for i, result in enumerate(search_results_list):
+        text = result.get("body") or result.get("title") or ""
+        article_embedding = model.encode(text, convert_to_tensor=True)
+        similarity_score = util.pytorch_cos_sim(user_embedding, article_embedding).item()
+        print(f"\nResult {i+1} Similarity Score: {similarity_score:.4f}")
+        print("Text:", text)
