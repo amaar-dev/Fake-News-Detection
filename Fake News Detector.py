@@ -24,6 +24,7 @@ def search_results(query):
         results = list(ddgs.text(query, region='wt-wt', safesearch='moderate', max_results=5))
     if not results:
         print("❌ No results found.")
+        return []
     else:
         for i, result in enumerate(results):
             print(f"\nResult {i+1}:")
