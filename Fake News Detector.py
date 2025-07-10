@@ -16,22 +16,17 @@ print("Extracted Keywords:", keywords_only)
 
 ### The following will use the extracted keywords to search for news articles related to them.
 
-from gnews import GNews
-
-google_news = GNews(language='en', country='US', max_results=5)
-
-query = " ".join(keywords_only) # join keywords to one string
-print("\search query: ",query)
-
-search_results = google_news.get_news(query) # perform search
-
-# Display the headlines and links
-for i, result in enumerate(search_results):
-   if not search_results:
-    print("❌ No results found from Google News.")
-else:
-    for i, result in enumerate(search_results):
-        print(f"\nResult {i+1}:")
-        print("Title:", result['title'])
-        print("Description:", result['description'])
-        print("URL:", result['url'])
+from duckduckgo_search import DDGS
+# Use DDGS as a context manager
+def search_results(query):
+    print("🔍 Searching for news articles on:", query)
+    with DDGS() as ddgs:
+        results = list(ddgs.text(query, region='wt-wt', safesearch='moderate', max_results=5))
+    if not results:
+        print("❌ No results found.")
+    else:
+        for i, result in enumerate(results):
+            print(f"\nResult {i+1}:")
+            print("Title:", result.get("title", "No title"))
+            print("Description:", result.get("body", "No description"))
+            print("URL:", result.get("href", "No URL"))
