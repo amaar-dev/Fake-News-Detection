@@ -1,6 +1,6 @@
 from duckduckgo_search import DDGS
 
-query = ""
+query = " "
 print("🔍 Searching for news articles on:", query)
 
 # Use DDGS as a context manager

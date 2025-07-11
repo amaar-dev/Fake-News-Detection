@@ -10,6 +10,8 @@ kw_model = KeyBERT()
 keywords = kw_model.extract_keywords(user_input, top_n=10) #extract 10 keywords
 
 keywords_only = [kw[0] for kw in keywords]
+query = " ".join(keywords_only)
+
 
 print("Extracted Keywords:", keywords_only)
 ### The code above uses KeyBERT to extract keywords from a given text input and shows the top 10 keywords in the form of a list.#
@@ -48,3 +50,18 @@ def compare_similarity(user_input, search_results_list):
         similarity_score = util.pytorch_cos_sim(user_embedding, article_embedding).item()
         print(f"\nResult {i+1} Similarity Score: {similarity_score:.4f}")
         print("Text:", text)
+
+        if similarity_score >= 0.6:
+            match_count += 1
+
+    print(f"\n Matching Articles Above Threshold: {match_count} out of {len(search_results_list)}")
+
+    if match_count >= 3:
+        print(" Verdict: This news is likely REAL.")
+    else:
+        print("Verdict: This news might be FAKE.")
+
+
+
+results = search_results(query)
+compare_similarity(user_input, results)
