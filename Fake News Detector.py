@@ -41,8 +41,9 @@ model = SentenceTransformer('all-MiniLM-L6-v2')  # small, fast, and good
 
 def compare_similarity(user_input, search_results_list):
     print("\n🔎 Semantic Similarity Analysis:")
-
+    match_count = 0
     user_embedding = model.encode(user_input, convert_to_tensor=True)
+    
 
     for i, result in enumerate(search_results_list):
         text = result.get("body") or result.get("title") or ""
