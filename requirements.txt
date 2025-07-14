@@ -1,0 +1,5 @@
+keybert
+duckduckgo-search
+sentence-transformers
+streamlit
+
